@@ -64,7 +64,7 @@ function ProductCard({ product }) {
             <div className="p-5 border-t border-gray-50/50">
                 <div className="flex items-center justify-between mb-1">
                     <span className="text-xs font-bold uppercase tracking-wider text-indigo-500">{product.category}</span>
-                    <span className="text-lg font-black text-gray-900">${product.price?.toFixed(2) || product.price}</span>
+                    <span className="text-lg font-black text-gray-900">Rs. {product.price?.toFixed(2) || product.price}</span>
                 </div>
                 
                 <h3 className="font-bold text-lg text-gray-800 line-clamp-1 mb-2">{product.name}</h3>

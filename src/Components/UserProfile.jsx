@@ -3,7 +3,6 @@ import Header from './Header';
 import SecondNav from './SecondNav';
 import { AuthContext } from '../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import api from '../api/axiosConfig';
 
 function UserProfile() {
     const { user, token } = useContext(AuthContext) || {};
@@ -17,10 +16,11 @@ function UserProfile() {
             return;
         }
         
-        const fetchOrders = async () => {
+        const fetchOrders = () => {
             try {
-                const res = await api.get('/orders');
-                setOrders(res.data);
+                const storedOrders = localStorage.getItem(`orders_${user.id}`);
+                const userOrders = storedOrders ? JSON.parse(storedOrders) : [];
+                setOrders(userOrders.reverse()); // Show latest orders first
             } catch (error) {
                 console.error("Failed to fetch orders", error);
             } finally {
@@ -29,7 +29,7 @@ function UserProfile() {
         };
 
         fetchOrders();
-    }, [token, navigate]);
+    }, [token, navigate, user.id]);
 
     if (!user) return null;
 
@@ -80,7 +80,7 @@ function UserProfile() {
                                         </div>
                                         <div>
                                             <p className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-1">Total</p>
-                                            <p className="font-black text-indigo-600">${order.totalAmount.toFixed(2)}</p>
+                                            <p className="font-black text-indigo-600">Rs. {order.totalAmount.toFixed(2)}</p>
                                         </div>
                                         <div>
                                             <p className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-1">Order ID</p>
@@ -98,7 +98,7 @@ function UserProfile() {
                                                     <p className="text-sm text-gray-500">{item.category}</p>
                                                 </div>
                                                 <div className="text-right">
-                                                    <p className="font-bold text-gray-900">${item.price}</p>
+                                                    <p className="font-bold text-gray-900">Rs. {item.price}</p>
                                                     <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
                                                 </div>
                                             </div>

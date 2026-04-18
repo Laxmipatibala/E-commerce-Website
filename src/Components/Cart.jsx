@@ -5,7 +5,6 @@ import { ProductContext } from '../Context/ProductContext';
 import { AuthContext } from '../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import api from '../api/axiosConfig';
 
 function Cart() {
     const { token } = useContext(AuthContext) || {};
@@ -69,7 +68,7 @@ function Cart() {
                                         <div>
                                             <h3 className="font-bold text-lg text-gray-900 line-clamp-1">{item.name}</h3>
                                             <p className="text-sm text-gray-500 uppercase font-semibold tracking-wider">{item.category}</p>
-                                            <p className="font-black text-indigo-600 mt-2">${item.price}</p>
+                                            <p className="font-black text-indigo-600 mt-2">Rs. {item.price}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-6 min-w-[200px] justify-between">
@@ -93,7 +92,7 @@ function Cart() {
                             <div className="space-y-3 text-gray-600 border-b pb-4 mb-4">
                                 <div className="flex justify-between items-center">
                                     <span>Subtotal</span>
-                                    <span className="font-bold">${total.toFixed(2)}</span>
+                                    <span className="font-bold">Rs. {total.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span>Shipping</span>
@@ -102,7 +101,7 @@ function Cart() {
                             </div>
                             <div className="flex justify-between items-center mb-8">
                                 <span className="text-lg font-bold">Total</span>
-                                <span className="text-2xl font-black text-indigo-600">${total.toFixed(2)}</span>
+                                <span className="text-2xl font-black text-indigo-600">Rs. {total.toFixed(2)}</span>
                             </div>
                             <button 
                                 onClick={handleCheckout}
