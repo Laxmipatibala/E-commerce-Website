@@ -21,7 +21,7 @@ function SignUp() {
             toast.success("Account created successfully!");
             navigate("/");
         } catch (error) {
-            toast.error(error.response?.data?.error || "Registration failed");
+            toast.error(error.message || "Registration failed");
         }
         setLoading(false);
     };

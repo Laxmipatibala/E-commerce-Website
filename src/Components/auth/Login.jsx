@@ -20,7 +20,7 @@ function Login() {
             toast.success("Successfully logged in!");
             navigate("/");
         } catch (error) {
-            toast.error(error.response?.data?.error || "Invalid credentials");
+            toast.error(error.message || "Invalid credentials");
         }
         setLoading(false);
     };
