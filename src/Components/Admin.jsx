@@ -1,6 +1,16 @@
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+
 function Admin(){
     const navigate = useNavigate();
+    
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user || user.role !== 'admin') {
+            navigate('/AdminLogin');
+        }
+    }, [navigate]);
+    
     return(
         <div>
             <div className="w-full mx-auto mt-2 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-md hover:bg-gradient-to-l from-indigo-500 to-purple-500">
@@ -14,4 +24,3 @@ function Admin(){
     )
 }
 export default Admin
-    

@@ -16,6 +16,22 @@ function AdminLogin() {
         e.preventDefault();
         setLoading(true);
         try {
+            // Hardcoded admin credentials for immediate testing
+            if (user === 'admin' && pwd === '1234') {
+                const adminUser = {
+                    id: 1,
+                    name: 'Admin',
+                    email: 'admin',
+                    role: 'admin'
+                };
+                localStorage.setItem('user', JSON.stringify(adminUser));
+                localStorage.setItem('token', 'admin_token_' + Date.now());
+                toast.success("Admin Dashboard Unlocked!");
+                navigate("/Admin");
+                setLoading(false);
+                return;
+            }
+            
             // Re-using login but verifying role. Our backend handles 'admin' as email logic.
             const res = await login(user, pwd); 
             
